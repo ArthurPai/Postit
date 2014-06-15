@@ -13,7 +13,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    user = User.find(1)
+    user = User.find(1) #TODO after user authentication
     @post = user.posts.build(post_params)
 
     if @post.save
