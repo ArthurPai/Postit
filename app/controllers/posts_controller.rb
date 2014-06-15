@@ -6,23 +6,34 @@ class PostsController < ApplicationController
   end
 
   def show
-
   end
 
   def new
-
+    @post = Post.new
   end
 
   def create
+    user = User.find(1)
+    @post = user.posts.build(post_params)
 
+    if @post.save
+      flash[:notice] = "Post Created."
+      redirect_to posts_path
+    else
+      render :new
+    end
   end
 
   def edit
-
   end
 
   def update
-
+    if @post.update(post_params)
+      flash[:notice] = "Post Updated."
+      redirect_to post_path
+    else
+      render :edit
+    end
   end
 
   private
@@ -30,4 +41,9 @@ class PostsController < ApplicationController
     def set_post
       @post = Post.find(params[:id])
     end
+
+    def post_params
+      params.require(:post).permit(:title, :url, :description)
+    end
+
 end
