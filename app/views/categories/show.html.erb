@@ -1,3 +1,4 @@
-<%= render 'shared/content_title', title: @category.name %>
+<% breadcrumbs = link_to('All Posts', posts_path) + " &raquo; #{@category.name}".html_safe %>
+<%= render 'shared/content_title', title: breadcrumbs %>
 
 <%= render @category.posts %>
