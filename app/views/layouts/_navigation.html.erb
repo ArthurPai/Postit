@@ -5,9 +5,9 @@
 </ul>
 
 <div class="btn-group nav_item">
-  <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href='#'>
-    Categories<span class="caret"></span>
-  </a>
+  <%= link_to '#', class: "btn btn-small dropdown-toggle", 'data-toggle' => "dropdown" do %>
+    Categories <span class="caret"></span>
+  <% end %>>
   <ul class="dropdown-menu">
     <% @categories.each do |category| %>
       <li><%= link_to category.name, category_path(category) %></li>
