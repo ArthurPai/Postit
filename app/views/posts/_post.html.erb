@@ -5,7 +5,7 @@
     <p><%= post.description %></p>
     <p>
       <span class="quiet">posed by</span> <%= post.creator.username %>
-      <small>at <%= post.created_at %></small>
+      <small><%= custom_time_ago_in_words(post.created_at) %></small>
     </p>
     <small>
       <span>
