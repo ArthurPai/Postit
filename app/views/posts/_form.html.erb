@@ -12,8 +12,6 @@
       <%= f.label 'description' %>
       <%= f.text_area 'description', rows: 5 %>
     </div>
-    <div class='control-group'>
-      <%= f.submit @post.new_record? ? 'Create Post' : 'Update', class: "btn btn-primary" %>
-    </div>
+    <%= f.submit @post.new_record? ? 'Create Post' : 'Update', class: "btn btn-primary" %>
   <% end %>
 </div>
