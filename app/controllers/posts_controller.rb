@@ -15,13 +15,19 @@ class PostsController < ApplicationController
 
   def create
     user = User.find(1) #TODO after user authentication
-    @post = user.posts.build(post_params)
 
-    if @post.save
-      flash[:notice] = "Post Created."
-      redirect_to posts_path
-    else
+    @post = user.posts.build
+    if categories_not_exist
       render :new
+    else
+      @post = user.posts.build(post_params)
+
+      if @post.save
+        flash[:notice] = "Post Created."
+        redirect_to posts_path
+      else
+        render :new
+      end
     end
   end
 
@@ -45,6 +51,15 @@ class PostsController < ApplicationController
 
     def post_params
       params.require(:post).permit(:title, :url, :description, category_ids: [])
+    end
+
+    def categories_not_exist
+      all_categorie_ids = Category.all.ids
+      category_ids = post_params[:category_ids]
+
+      unless category_ids.all? { |e| all_categorie_ids.include?(e) }
+        @post.errors.add(:category_ids, "have some category is not exist")
+      end
     end
 
 end

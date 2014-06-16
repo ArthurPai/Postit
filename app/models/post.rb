@@ -7,4 +7,13 @@ class Post < ActiveRecord::Base
   validates :title, presence: true, length: { minimum: 5, maximum: 120 }
   validates :url, presence: true, length: { maximum: 120 }
   validates :description, presence: true
+
+  validate :exist_category
+
+  def exist_category
+    all_categorie_ids = Category.all.ids
+    unless category_ids.all? { |e| all_categorie_ids.include?(e) }
+      errors.add(:category_ids, "have some category is not exist")
+    end
+  end
 end
