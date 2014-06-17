@@ -12,20 +12,23 @@
     <% all_categories.each do |category| %>
       <li><%= link_to category.name, category_path(category) %></li>
     <% end %>
-    <li class="divider"></li>
-    <li>
-      <%= link_to(new_category_path) do %>
-        <%= content_tag(:i, '', class: 'icon-plus') %> New Category
-      <% end %>
-    </li>
+
+    <% if logged_in? %>
+      <li class="divider"></li>
+      <li>
+        <%= link_to(new_category_path) do %>
+          <%= content_tag(:i, '', class: 'icon-plus') %> New Category
+        <% end %>
+      </li>
+    <% end %>
   </ul>
 </div>
 
-<div class="nav_item">
-  <%= link_to 'New Post', new_post_path, class: 'btn btn-success btn-small' %>
-</div>
-
 <% if logged_in? %>
+  <div class="nav_item">
+    <%= link_to 'New Post', new_post_path, class: 'btn btn-success btn-small' %>
+  </div>
+
   <div class="nav_item">
     <%= link_to 'Edit Profile', profile_path, class: 'btn btn-success btn-small' %>
   </div>
