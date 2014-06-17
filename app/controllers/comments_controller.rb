@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
-    @comment = @post.comments.new(comment_params)
+    @comment = @post.comments.new(comment_params) # TODO : app crash when comment body empty
     @comment.creator = current_user
 
     if @comment.save
