@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_action :customer, only: [:new, :create]
+
   def new
   end
 

@@ -5,6 +5,13 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user, :logged_in?
 
+  def customer
+    if logged_in?
+      flash[:error] = 'You also login!'
+      redirect_to root_path
+    end
+  end
+
   def login_user
     unless logged_in?
       flash[:error] = 'You must login first!'
