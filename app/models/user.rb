@@ -3,6 +3,6 @@ class User < ActiveRecord::Base
   has_many :comments, dependent: :destroy
 
   validates :username, presence: true, uniqueness: true
-  validates :password, presence: true, length: { minimum: 4 }
+  validates :password, presence: true, length: { minimum: 4 }, on: :create
   has_secure_password validations: false
 end
