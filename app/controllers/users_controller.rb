@@ -1,9 +1,9 @@
 class UsersController <ApplicationController
   before_action :customer, only: [:new, :create]
-  before_action :login_user, only: [:edit, :update]
+  before_action :set_user, only: [:show, :edit, :update]
+  before_action :now_user, only: [:edit, :update]
 
   def show
-    @user = User.find(params[:id])
     @show_post_tab = params[:tab] != 'comments'
   end
 
@@ -27,9 +27,9 @@ class UsersController <ApplicationController
   end
 
   def update
-    if current_user.update(user_params)
-      flash[:notice] = "Your profile is updated."
-      redirect_to profile_path
+    if @user.update(user_params)
+      flash[:notice] = "Your profile was updated."
+      redirect_to user_path(@user)
     else
       render :edit
     end
@@ -39,5 +39,16 @@ class UsersController <ApplicationController
 
     def user_params
       params.require(:user).permit(:username, :password)
+    end
+
+    def set_user
+      @user = User.find(params[:id])
+    end
+
+    def now_user
+      unless current_user?(@user)
+        flash[:error] = "You're not allowed to do that."
+        redirect_to root_path
+      end
     end
 end
