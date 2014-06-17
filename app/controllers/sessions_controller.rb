@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to root_path
     else
-      flash.now[:errors] = 'There were some errors of your username or password!'
+      flash.now[:error] = 'There were some errors of your username or password!'
       render :new
     end
   end
