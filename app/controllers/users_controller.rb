@@ -1,5 +1,11 @@
 class UsersController <ApplicationController
   before_action :customer, only: [:new, :create]
+  before_action :login_user, only: [:edit, :update]
+
+  def show
+    @user = User.find(params[:id])
+    @show_post_tab = params[:tab] != 'comments'
+  end
 
   def new
     @user = User.new

@@ -2,10 +2,10 @@
   <div class="well span8">
     <em>"<%= comment.body %>"</em>
     <% if show_post_name %>
-     on <%= link_to comment.post.title, post_path(comment.post.id) %>
+     on <%= link_to comment.post.title, post_path(comment.post) %>
     <% end %>
     <br>
-    <span class="quiet">by</span> <%= link_to comment.creator.username, user_path(comment.creator.id) %>
+    <span class="quiet">by</span> <%= link_to comment.creator.username, user_path(comment.creator) %>
     <small><%= custom_time_ago_in_words(comment.created_at) %></small>
   </div>
 </div>
