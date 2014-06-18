@@ -1,13 +1,17 @@
 <div class="row">
   <div class="span0 well text-center">
-    <%= link_to vote_post_path(post, vote: true), method: :post do %>
-      <%= content_tag(:i, '', class: 'icon-arrow-up') %>
+    <% if logged_in? %>
+      <%= link_to vote_post_path(post, vote: true), method: :post do %>
+        <%= content_tag(:i, '', class: 'icon-arrow-up') %>
+      <% end %>
+      <br/>
     <% end %>
-    <br/>
     <%= post.total_votes %> votes
-    <br/>
-    <%= link_to vote_post_path(post, vote: false), method: :post do %>
-      <%= content_tag(:i, '', class: 'icon-arrow-down') %>
+    <% if logged_in? %>
+      <br/>
+      <%= link_to vote_post_path(post, vote: false), method: :post do %>
+        <%= content_tag(:i, '', class: 'icon-arrow-down') %>
+      <% end %>
     <% end %>
   </div>
   <div class="span8 well">
