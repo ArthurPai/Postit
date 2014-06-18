@@ -4,6 +4,6 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true, uniqueness: true
   validates :password, presence: true, length: { minimum: 4 }, on: :create
-  validates :password, length: { minimum: 4 }, on: :update
+  validates :password, allow_blank: true, length: { minimum: 4 }, on: :update
   has_secure_password validations: false
 end
