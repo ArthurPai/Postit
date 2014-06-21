@@ -12,17 +12,26 @@ class Post < ActiveRecord::Base
   after_validation :generate_slug
 
   def generate_slug
-    slug_tail = self.title.to_slug
+    prefix_slug = self.title.to_slug
 
-    if slug_tail.length > 0
-      self.slug = "#{self.id}-" + slug_tail
-    else
-      self.slug = "#{self.id}"
+    if prefix_slug.length == 0
+      prefix_slug = self.id.to_s
     end
+
+    count = 1
+    the_slug = prefix_slug
+    post = Post.find_by(slug: the_slug)
+    while post && post != self
+      the_slug = prefix_slug + '-' + count.to_s
+      count += 1
+      post = Post.find_by(slug: the_slug)
+    end
+
+    self.slug = the_slug
   end
 
   def to_param
-    slug
+    self.slug
   end
 
   def total_votes

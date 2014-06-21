@@ -7,16 +7,10 @@ class Category < ActiveRecord::Base
   after_validation :generate_slug
 
   def generate_slug
-    slug_tail = self.name.to_slug
-
-    if slug_tail.length > 0
-      self.slug = "#{self.id}-" + slug_tail
-    else
-      self.slug = "#{self.id}"
-    end
+    self.slug = self.name.to_slug
   end
 
   def to_param
-    slug
+    self.slug
   end
 end
