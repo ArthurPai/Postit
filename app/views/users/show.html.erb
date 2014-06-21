@@ -18,7 +18,9 @@
 </ul>
 
 <% if @show_post_tab %>
-  <%= render @user.posts %>
+  <div id="posts-block">
+    <%= render @user.posts %>
+  </div>
 <% else %>
   <%= render partial: 'comments/comment', collection: @user.comments, locals: {show_post_name: true} %>
 <% end %>
