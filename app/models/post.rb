@@ -9,6 +9,22 @@ class Post < ActiveRecord::Base
   validates :url, presence: true, length: { maximum: 120 }
   validates :description, presence: true
 
+  after_validation :generate_slug
+
+  def generate_slug
+    slug_tail = self.title.to_slug
+
+    if slug_tail.length > 0
+      self.slug = "#{self.id}-" + slug_tail
+    else
+      self.slug = "#{self.id}"
+    end
+  end
+
+  def to_param
+    slug
+  end
+
   def total_votes
     up_votes - down_votes
   end
@@ -20,4 +36,5 @@ class Post < ActiveRecord::Base
   def down_votes
     self.votes.where(vote: false).size
   end
+
 end
