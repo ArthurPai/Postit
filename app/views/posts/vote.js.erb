@@ -19,8 +19,8 @@
       return 1;
     }
 
-    var aid = a.getAttribute('data-postid'),
-        bid = b.getAttribute('data-postid');
+    var aid = a.getAttribute('data-voteable-id'),
+        bid = b.getAttribute('data-voteable-id');
 
     if(aid > bid) {
       return -1;
