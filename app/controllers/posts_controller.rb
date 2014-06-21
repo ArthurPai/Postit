@@ -39,10 +39,10 @@ class PostsController < ApplicationController
   end
 
   def vote
-    vote = Vote.create(vote: params[:vote], creator: current_user, voteable: @post)
+    @vote = Vote.create(vote: params[:vote], creator: current_user, voteable: @post)
 
     respond_to do |format|
-      if vote.valid?
+      if @vote.valid?
         flash[:notice] = 'Your vote was counted'
         format.html { redirect_to :back }
         format.js
