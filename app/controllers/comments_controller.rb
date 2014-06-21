@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   before_action :login_user
 
   def create
-    @post = Post.find(params[:post_id])
+    @post = Post.find_by(slug: params[:post_id])
     @comment = @post.comments.new(comment_params) # TODO : app crash when comment body empty
     @comment.creator = current_user
 
