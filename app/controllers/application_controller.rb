@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   after_filter :flash_to_headers
 
-  helper_method :current_user, :current_user?, :logged_in?
+  helper_method :current_user, :current_user?, :logged_in?, :sort_voteable
 
   def customer
     if logged_in?
@@ -31,6 +31,10 @@ class ApplicationController < ActionController::Base
 
   def logged_in?
     !!current_user
+  end
+
+  def sort_voteable(elements)
+    elements.sort_by { |e| e.total_votes }.reverse
   end
 
   private

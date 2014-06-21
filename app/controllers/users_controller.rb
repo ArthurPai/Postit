@@ -5,7 +5,6 @@ class UsersController <ApplicationController
 
   def show
     @show_post_tab = params[:tab] != 'comments'
-    @posts = @user.posts.all.sort_by { |post| post.total_votes }.reverse
   end
 
   def new

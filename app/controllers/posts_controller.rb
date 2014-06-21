@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   before_action :creator_user, only: [:edit, :update]
 
   def index
-    @posts = Post.all.sort_by { |post| post.total_votes }.reverse
+    @posts = sort_voteable(Post.all)
   end
 
   def show
