@@ -1,12 +1,12 @@
 <% if @vote.valid? %>
-  var post_votes = $('<%= "#post-#{@post.id}-votes" %>');
-  post_votes.html('<%= @post.total_votes %> votes');
-  post_votes.closest('.post-block').attr('data-votes', <%= @post.total_votes %>);
+  var comment_votes = $('<%= "#comment-#{@comment.id}-votes" %>');
+  comment_votes.html('<%= @comment.total_votes %> votes');
+  comment_votes.closest('.comment-block').attr('data-votes', <%= @comment.total_votes %>);
 
-  var posts_block = $('#posts-block');
-  var posts = posts_block.find('.post-block');
+  var comments_block = $('#comments-block');
+  var comments = comments_block.find('.comment-block');
 
-  posts.sort(function(a,b){
+  comments.sort(function(a,b){
     var av = a.getAttribute('data-votes'),
         bv = b.getAttribute('data-votes');
 
@@ -30,5 +30,5 @@
     return 0;
   });
 
-  posts.detach().appendTo(posts_block);
+  comments.detach().appendTo(comments_block);
 <% end %>

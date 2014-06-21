@@ -29,4 +29,6 @@
 
 <h5>Comments:</h5>
 
-<%= render partial: 'comments/comment', collection: sort_voteable(@post.comments), locals: {show_post_name: false} %>
+<div id="comments-block" >
+  <%= render partial: 'comments/comment', collection: sort_voteable(@post.comments), locals: {show_post_name: false} %>
+</div>

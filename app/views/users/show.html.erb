@@ -22,5 +22,7 @@
     <%= render sort_voteable(@user.posts) %>
   </div>
 <% else %>
-  <%= render partial: 'comments/comment', collection: sort_voteable(@user.comments), locals: {show_post_name: true} %>
+  <div id="comments-block">
+    <%= render partial: 'comments/comment', collection: sort_voteable(@user.comments), locals: {show_post_name: true} %>
+  </div>
 <% end %>
