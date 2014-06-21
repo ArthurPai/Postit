@@ -12,7 +12,13 @@ class User < ActiveRecord::Base
   after_validation :generate_slug
 
   def generate_slug
-    self.slug = "#{self.id}-" + username.to_slug
+    slug_tail = self.username.to_slug
+
+    if slug_tail.length > 0
+      self.slug = "#{self.id}-" + slug_tail
+    else
+      self.slug = "#{self.id}"
+    end
   end
 
   def to_param
