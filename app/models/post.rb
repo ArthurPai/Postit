@@ -1,9 +1,10 @@
 class Post < ActiveRecord::Base
+  include VoteableArthur
+
   belongs_to :creator, class_name: 'User', foreign_key: 'user_id'
   has_many :comments, dependent: :destroy
   has_many :post_categories
   has_many :categories, through: :post_categories
-  has_many :votes, as: :voteable
 
   validates :title, presence: true, length: { minimum: 5, maximum: 120 }
   validates :url, presence: true, length: { maximum: 120 }
@@ -32,18 +33,6 @@ class Post < ActiveRecord::Base
 
   def to_param
     self.slug
-  end
-
-  def total_votes
-    up_votes - down_votes
-  end
-
-  def up_votes
-    self.votes.where(vote: true).size
-  end
-
-  def down_votes
-    self.votes.where(vote: false).size
   end
 
 end
