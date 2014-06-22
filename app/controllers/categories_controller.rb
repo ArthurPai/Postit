@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :login_user, except: [:show]
+  before_action :admin_role, except: [:show]
 
   def show
     @category = Category.find_by(slug: params[:id])

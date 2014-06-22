@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   after_filter :flash_to_headers
 
-  helper_method :current_user, :current_user?, :logged_in?, :sort_voteable
+  helper_method :current_user, :current_user?, :logged_in?, :admin?, :sort_voteable
 
   def customer
     if logged_in?
@@ -21,6 +21,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def admin_role
+    unless admin?
+      flash[:error]  = "You can't do it"
+      redirect_to root_path
+    end
+  end
+
+  #
+  # Helper method
+  #
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
@@ -31,6 +41,10 @@ class ApplicationController < ActionController::Base
 
   def logged_in?
     !!current_user
+  end
+
+  def admin?
+    logged_in? && current_user.admin?
   end
 
   def sort_voteable(elements)
