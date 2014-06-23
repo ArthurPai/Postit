@@ -9,7 +9,13 @@ module ApplicationHelper
   end
 
   def custom_time_ago_in_words(time)
-    "#{time_ago_in_words(time)} ago"
+    difference_day = (Time.zone.now.to_date - time.to_date).to_i
+
+    if difference_day >= 1
+      "at #{time.strftime("%d %b %Y - %H:%M:%S %Z")}"
+    else
+      "#{time_ago_in_words(time)} ago"
+    end
   end
 
   def display_datetime(dt)
