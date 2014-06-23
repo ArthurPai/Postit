@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   def admin_role
     unless admin?
       flash[:error]  = "You can't do it"
-      redirect_to root_path
+      redirect_to :back
     end
   end
 
