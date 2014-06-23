@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :vote]
   before_action :login_user, except: [:index, :show]
-  before_action :creator_user, only: [:edit, :update]
+  before_action :creator_user_or_admin, only: [:edit, :update]
 
   def index
     @posts = sort_voteable(Post.all)
@@ -64,8 +64,8 @@ class PostsController < ApplicationController
       params.require(:post).permit(:title, :url, :description, category_ids: [])
     end
 
-    def creator_user
-      unless current_user?(@post.creator)
+    def creator_user_or_admin
+      unless current_user?(@post.creator) || current_user.admin?
         flash[:error] = "You can't do that."
         redirect_to root_path
       end
